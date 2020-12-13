@@ -6,28 +6,29 @@ import './App.css';
 
 let socket;
 class App extends Component {
-
-
   constructor(){
     super();
     this.state = {
       endpoint:'http://localhost:8080',
       data:null,
-      socket:null
+      socket:{
+        autoConnect:true
+      },
+      flightCords:{
+        hsi:0,
+        adi:0,
+        altitude:0
+      }
     }
-    socket = socketIoClient.connect(this.state.endpoint);
   }
 
-  componentWillMount(){
-  }
 
   componentDidMount(){
-    console.log('Component Did Mount');
-    socket.emit('requestingCords');
+    socket = socketIoClient.connect(this.state.endpoint, {'timeout':Infinity});
+    console.log(socket);
     socket.on('cords',data=>{
       console.log(`${socket} just got his cords`);
       this.setState({flightCords:data});
-      socket.emit('requestingCords');
     });
   }
 
@@ -40,7 +41,8 @@ class App extends Component {
           <button className="btn btn-primary">Visual</button> 
           <button className="btn btn-primary">Textual</button> 
           </div>
-          <TextualMonitor FlightCords={this.state.flightCords} />
+          {/* <TextualMonitor FlightCords={this.state.flightCords} /> */}
+          <VisualMonitor FlightCords={this.state.flightCords} />
         </div>
       </div>
     );
