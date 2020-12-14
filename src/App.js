@@ -15,7 +15,7 @@ class App extends Component {
         autoConnect:true
       },
       flightCords:{
-        hsi:0,
+        his:0,
         adi:0,
         altitude:0
       }
@@ -28,12 +28,13 @@ class App extends Component {
     console.log(socket);
     socket.on('cords',data=>{
       console.log(`${socket} just got his cords`);
+      console.log(data);
       this.setState({flightCords:data});
     });
   }
 
   render() {
-
+    console.log('Inside App.js');
     return (
       <div className="App">
         <div className="jumbotron jumbotron-fluid">
@@ -42,6 +43,7 @@ class App extends Component {
           <button className="btn btn-primary">Textual</button> 
           </div>
           {/* <TextualMonitor FlightCords={this.state.flightCords} /> */}
+
           <VisualMonitor FlightCords={this.state.flightCords} />
         </div>
       </div>

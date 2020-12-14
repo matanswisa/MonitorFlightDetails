@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextualMonitorCard from './TextMonitorCard/textualMonitorCard.js';
 
-const fakeData = { altitude: '100', his: '80', adi: '-50' };
+
 const convertJsonToArray = (fakeData) => {
     const array = [];
     for (var key in fakeData) {

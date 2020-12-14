@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import HSIComponent from './HIS/HSIComponent';
+import HSIComponent from './HIS/HISComponent';
 
 
 class VisualMonitor extends Component {
 
   constructor(props){
     super(props);
+    console.log(props);
 
   }
 
@@ -14,8 +15,8 @@ class VisualMonitor extends Component {
     return (
       <div className="visual">
             <h1 class="display-5">Visual Monitor</h1>
-
-             <HSIComponent hsi={this.props.FlightCords.hsi}/>
+              
+             <HSIComponent HIS={this.props.FlightCords.his}/>
 
       </div>
     );
