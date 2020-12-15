@@ -7,6 +7,10 @@ class HISComponent extends Component {
         this.ctx = this.canvas = this.upperArrowImg = this.radius = null;
     }
 
+    componentDidUpdate(){
+        this.drawHISMonitor(this.props.HIS,this.ctx);
+    }
+
     componentDidMount() {
         this.upperArrowImg = this.refs.image;
         this.canvas = this.refs.canvas;
@@ -16,7 +20,7 @@ class HISComponent extends Component {
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
 
-        this.drawHISMonitor(-this.props.HIS, this.ctx);
+        this.forceUpdate()
     }
 
     drawHISMonitor(his, ctx) {
@@ -25,6 +29,7 @@ class HISComponent extends Component {
         this.drawAngels(ctx, this.radius);
         ctx.restore();
         this.drawUpperArrow(ctx, this.upperArrowImg)
+        
     }
 
     rotateHISMonitor(ctx, radius, his) {
