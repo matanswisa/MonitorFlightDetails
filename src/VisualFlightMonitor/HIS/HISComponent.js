@@ -7,28 +7,30 @@ class HISComponent extends Component {
         console.log('inside HIS component');
         console.log(props.HIS);
         this.ctx = this.canvas = this.img = this.radius = null;
+        this.makeImageRender = false;
     }
     
-    componentDidUpdate(nextProps){
-        console.log("component did update");
-        console.log(nextProps);
+    componentDidUpdate(){
         this.drawClock(-this.props.HIS)
-        
+        console.log(this.img);
     }
-    
     componentDidMount() {
+        this.img = this.refs.image;
         this.canvas = this.refs.canvas;
         this.ctx = this.canvas.getContext("2d");
-        this.img = this.refs.image;
+        
+
+        console.log(this.img);
 
         this.radius = this.canvas.height / 2;
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
 
         this.drawClock(-this.props.HIS);
-    
+        this.forceUpdate()
 
     }
+
      drawClock(his) {
         this.ctx.save()
         this.drawFace(this.ctx, this.radius, his);

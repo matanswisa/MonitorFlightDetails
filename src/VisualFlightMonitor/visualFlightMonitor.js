@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import AltitudeComponent from './Altitude/AltitudeComponent';
 import HSIComponent from './HIS/HISComponent';
-
+import ADIComponent from './ADIComponent/ADIComponent.js'
 
 class VisualMonitor extends Component {
 
@@ -14,20 +15,24 @@ class VisualMonitor extends Component {
 
     return (
       <div className="visual">
-            <h1 class="display-5">Visual Monitor</h1>
-              
-             <HSIComponent HIS={this.props.FlightCords.his}/>
+            <h1 class="display-5">Visual Flight Monitor</h1>
+            <div className="row">
+              <div className="col">
+            <AltitudeComponent altitude={this.props.FlightCords.altitude}/>
+              </div>
+              <div className="col">
+                
+            <HSIComponent HIS={this.props.FlightCords.his}/>
+              </div>
+              <div className="col">
+            <ADIComponent ADI={this.props.FlightCords.adi}/>
 
+                </div>
+            </div>
       </div>
     );
   }
 }
 
-// const jumbotronStyle = {
-//   width:'70%',
-//   height:'400px',
-//   margin:'0 auto',
-//   marginTop:'100px'
-// }
 
 export default VisualMonitor;

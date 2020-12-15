@@ -18,7 +18,9 @@ class App extends Component {
         his:0,
         adi:0,
         altitude:0
-      }
+      },
+      isTextView : false,
+      isVisualView : true
     }
   }
 
@@ -34,17 +36,20 @@ class App extends Component {
   }
 
   render() {
-    console.log('Inside App.js');
     return (
       <div className="App">
         <div className="jumbotron jumbotron-fluid">
           <div className="buttons-wrapper" style={{left:"0px", width:"200px", padding:"10px"}}>
-          <button className="btn btn-primary">Visual</button> 
-          <button className="btn btn-primary">Textual</button> 
+          <button onClick={()=>this.setState({isTextView:false,isVisualView:true})} className="btn btn-primary">Visual</button> 
+          <button  onClick={()=>this.setState({isTextView:true,isVisualView:false})} className="btn btn-primary">Textual</button> 
           </div>
-          {/* <TextualMonitor FlightCords={this.state.flightCords} /> */}
 
-          <VisualMonitor FlightCords={this.state.flightCords} />
+          {
+            this.state.isTextView && !this.state.isVisualView ?
+              <TextualMonitor FlightCords={this.state.flightCords} /> :
+              <VisualMonitor FlightCords={this.state.flightCords} />
+          }
+
         </div>
       </div>
     );
