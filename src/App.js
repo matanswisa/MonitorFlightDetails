@@ -4,7 +4,7 @@ import TextualMonitor from './TextualMonitor/textualMonitor.js';
 import socketIoClient from 'socket.io-client';
 import './App.css';
 
-let socket;
+let clientSocket;
 class App extends Component {
   constructor(){
     super();
@@ -25,12 +25,15 @@ class App extends Component {
   }
 
 
+  /** 
+  *In the end of the render
+  *@param {clientSocket} clientSocket  the client socket asks from the server to connect.
+  *@param {socketIoClient} socketIoClient is the library who allows you to connect to the server and get requests.
+  **/
   componentDidMount(){
-    socket = socketIoClient.connect(this.state.endpoint, {'timeout':Infinity});
-    console.log(socket);
-    socket.on('cords',data=>{
-      console.log(`${socket} just got his cords`);
-      console.log(data);
+    clientSocket = socketIoClient.connect(this.state.endpoint, {'timeout':Infinity});
+
+    clientSocket.on('sendCordsToClient',data=>{
       this.setState({flightCords:data});
     });
   }

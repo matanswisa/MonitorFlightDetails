@@ -2,69 +2,56 @@ import React, { Component } from 'react';
 import imgSrc from './arrowUp.png'
 
 class HISComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        console.log('inside HIS component');
-        console.log(props.HIS);
-        this.ctx = this.canvas = this.img = this.radius = null;
-        this.makeImageRender = false;
+        this.ctx = this.canvas = this.upperArrowImg = this.radius = null;
     }
-    
-    componentDidUpdate(){
-        this.drawClock(-this.props.HIS)
-        console.log(this.img);
-    }
+
     componentDidMount() {
-        this.img = this.refs.image;
+        this.upperArrowImg = this.refs.image;
         this.canvas = this.refs.canvas;
         this.ctx = this.canvas.getContext("2d");
-        
-
-        console.log(this.img);
 
         this.radius = this.canvas.height / 2;
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
 
-        this.drawClock(-this.props.HIS);
-        this.forceUpdate()
-
+        this.drawHISMonitor(-this.props.HIS, this.ctx);
     }
 
-     drawClock(his) {
-        this.ctx.save()
-        this.drawFace(this.ctx, this.radius, his);
-        this.drawNumbers(this.ctx, this.radius);
-        this.ctx.restore()
-        this.drawCenterImage(this.ctx,this.img)
+    drawHISMonitor(his, ctx) {
+        ctx.save();
+        this.rotateHISMonitor(ctx, this.radius, his);
+        this.drawAngels(ctx, this.radius);
+        ctx.restore();
+        this.drawUpperArrow(ctx, this.upperArrowImg)
     }
 
-     drawFace(ctx, radius, his) {
+    rotateHISMonitor(ctx, radius, his) {
         ctx.beginPath();
-        this.drawBorder(ctx, radius)
+        this.drawHISBorder(ctx, radius)
         ctx.rotate(his * Math.PI / 180)
     }
 
-     drawNumbers(ctx, radius) {
+    drawAngels(ctx, radius) {
         var ang;
-        var num;
         ctx.fillStyle = '#333'
         ctx.font = radius * 0.15 + "px arial";
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
-        for (num = 0; num < 360; num += 90) {
-            ang = num * Math.PI / (-12);
+        for (let angel = 0; angel < 360; angel += 90) {
+            ang = angel * Math.PI / (-12);
             ctx.rotate(ang);
             ctx.translate(0, -radius * 0.85);
             ctx.rotate(-ang);
-            ctx.fillText(num.toString(), 0, 0);
+            ctx.fillText(angel.toString(), 0, 0);
             ctx.rotate(ang);
             ctx.translate(0, radius * 0.85);
             ctx.rotate(-ang);
         }
     }
 
-     drawBorder(ctx, radius) {
+    drawHISBorder(ctx, radius) {
         ctx.arc(0, 0, radius, 0, 2 * Math.PI);
         ctx.fillStyle = 'white';
         ctx.fill();
@@ -78,21 +65,17 @@ class HISComponent extends Component {
         ctx.beginPath();
     }
 
-     drawCenterImage(ctx,img) {
+    drawUpperArrow(ctx, img) {
         ctx.drawImage(img, -img.width / 2, -img.height / 2, 50, 50);
     }
 
     render() {
-
-        console.log("inside HIS render command");
-        // console.log(this.props.his);
-        console.log(this.props.HIS);
         return (
             <div>
                 <canvas ref="canvas" id="canvas" width="275" height="275">
                 </canvas>
                 <div style={{ display: "none" }}>
-                    <img ref="image" id="arrow" width="50" height="50" src = {imgSrc} style={{ position: "static" }} className="hidden"/>
+                    <img ref="image" id="arrow" width="50" height="50" src={imgSrc} style={{ position: "static" }} className="hidden" />
                 </div>
             </div>
         );

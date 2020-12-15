@@ -6,22 +6,27 @@ class ADIComponent extends Component {
         super(props);
         this.maxAdi = 100;
         this.minAdi = -100;
-        this.result = 0;
-        
+        this.percentageResult = 0;
     }
 
-    calculatePercantage() {
+    /**
+     * Returns calculate percentage for linear-gardient color
+     * 
+     * @param {difference} difference the substraction result between the max and min values of ADI.
+     * @param {percentageResult} percentageResult the calculated result for the linear-gardient css background
+     */
+    getCalculatePercantageResult() {
         var difference = this.maxAdi - this.minAdi;
-        var result = Number((this.props.ADI * 100 / difference) + 50);
-        return result;
+        var percentageResult = Number((this.props.ADI * 100 / difference) + 50);
+        return percentageResult;
     }
 
 
     render() {
-        this.result = this.calculatePercantage();
+        this.percentageResult = this.getCalculatePercantageResult();
         console.log("Inside ADI render");
         return <div className="adi-border" style={{background:`linear-gradient(  rgb(0,113,255)
-                ${this.result}%, rgb(75,255,50) ${this.result}% )`}}>
+                ${this.percentageResult}%, rgb(75,255,50) ${this.percentageResult}% )`}}>
         </div>
     }
 }

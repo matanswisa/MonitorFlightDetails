@@ -19,9 +19,7 @@ class AltitudeComponent extends Component {
     componentDidMount() {
         this.canvas = this.refs.canvas;
         this.ctx = this.canvas.getContext("2d");
-        //this.ctx.translate(this.radius, this.radius);
-        //this.radius = this.radius * 0.90;
-        
+
         this.drawBar(parseInt(this.props.altitude));
     }
 

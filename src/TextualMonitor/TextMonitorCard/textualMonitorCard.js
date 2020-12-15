@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 
-
 class TextualMonitorCard extends Component {
     constructor(props){
         super(props);
-        console.log('inside card');
-        console.log(props);
     }
 
     render() {
-
         return (
             <div class="col-sm-4 card text-white bg-dark mb-3" style={{maxWidth: "18rem",margin:"10px",padding:"5px"}}>
             <div class="card-body">
