@@ -7,10 +7,16 @@ class HISComponent extends Component {
         this.ctx = this.canvas = this.upperArrowImg = this.radius = null;
     }
 
+    /**
+     * Draws the HIS monitor
+     */
     componentDidUpdate(){
         this.drawHISMonitor(this.props.HIS,this.ctx);
     }
 
+    /**
+     * Initilaize the canvas 
+     */
     componentDidMount() {
         this.upperArrowImg = this.refs.image;
         this.canvas = this.refs.canvas;
@@ -20,42 +26,64 @@ class HISComponent extends Component {
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
 
-        this.forceUpdate()
+        this.forceUpdate();
     }
 
+    /**
+     * Draws the HIS monitor
+     * @param {*} his the HIS angle value
+     * @param {*} ctx the object that responsible to draw on canvas
+     */
     drawHISMonitor(his, ctx) {
         ctx.save();
         this.rotateHISMonitor(ctx, this.radius, his);
-        this.drawAngels(ctx, this.radius);
+        this.drawAngles(ctx, this.radius);
         ctx.restore();
         this.drawUpperArrow(ctx, this.upperArrowImg)
         
     }
 
+    /**
+     * Rotates the monitor by the HIS value
+     * 
+     * @param {*} ctx the object that responsible to draw on canvas
+     * @param {*} radius the radius of the monitor circle
+     * @param {*} his the HIS angle value
+     */
     rotateHISMonitor(ctx, radius, his) {
         ctx.beginPath();
         this.drawHISBorder(ctx, radius)
         ctx.rotate(his * Math.PI / 180)
     }
 
-    drawAngels(ctx, radius) {
-        var ang;
+    /**
+     * Draws all the angles on the HIS monitor
+     * @param {*} ctx the object that responsible to draw on canvas
+     * @param {*} radius the radius of the monitor circle
+     */
+    drawAngles(ctx, radius) {
+        var calculatedAngle;
         ctx.fillStyle = '#333'
         ctx.font = radius * 0.15 + "px arial";
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
-        for (let angel = 0; angel < 360; angel += 90) {
-            ang = angel * Math.PI / (-12);
-            ctx.rotate(ang);
+        for (let angle = 0; angle < 360; angle += 90) {
+            calculatedAngle = angle * Math.PI / (-12);
+            ctx.rotate(calculatedAngle);
             ctx.translate(0, -radius * 0.85);
-            ctx.rotate(-ang);
-            ctx.fillText(angel.toString(), 0, 0);
-            ctx.rotate(ang);
+            ctx.rotate(-calculatedAngle);
+            ctx.fillText(angle.toString(), 0, 0);
+            ctx.rotate(calculatedAngle);
             ctx.translate(0, radius * 0.85);
-            ctx.rotate(-ang);
+            ctx.rotate(-calculatedAngle);
         }
     }
 
+    /**
+     * Draws the border of the HIS monitor
+     * @param {*} ctx the object that responsible to draw on canvas
+     * @param {*} radius the radius of the monitor circle
+     */
     drawHISBorder(ctx, radius) {
         ctx.arc(0, 0, radius, 0, 2 * Math.PI);
         ctx.fillStyle = 'white';
@@ -70,6 +98,11 @@ class HISComponent extends Component {
         ctx.beginPath();
     }
 
+    /**
+     * Draw upper arrow image in the center of the monitor
+     * @param {*} ctx the object that responsible to draw on canvas
+     * @param {*} img the upper arrow img
+     */
     drawUpperArrow(ctx, img) {
         ctx.drawImage(img, -img.width / 2, -img.height / 2, 50, 50);
     }

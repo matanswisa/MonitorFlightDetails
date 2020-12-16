@@ -5,7 +5,7 @@ import TextualMonitorCard from './TextMonitorCard/textualMonitorCard.js';
  * Returns array with json objects
  * 
  * @param {jsonObject} jsonObject the javascript object who contains keys and values pairs
- * @param {jsonObjectsArray} jsonObjectsArray the array with all the keys and valus pairs from the json object
+ * 
  * 
  * **/
 const convertJsonToArray = (jsonObject) => {

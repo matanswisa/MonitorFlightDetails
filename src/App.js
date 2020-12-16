@@ -26,13 +26,11 @@ class App extends Component {
 
 
   /** 
-  *In the end of the render
-  *@param {clientSocket} clientSocket  the client socket asks from the server to connect.
-  *@param {socketIoClient} socketIoClient is the library who allows you to connect to the server and get requests.
+  *In the end of the render of component  , client socket creates a  TCP connection with server.
+  *The client socket will recive a flight cords and set the state of the new cords.
   **/
   componentDidMount(){
     clientSocket = socketIoClient.connect(this.state.endpoint, {'timeout':Infinity});
-
     clientSocket.on('sendCordsToClient',data=>{
       this.setState({flightCords:data});
     });

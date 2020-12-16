@@ -10,10 +10,8 @@ class ADIComponent extends Component {
     }
 
     /**
-     * Returns calculate percentage for linear-gardient color
+     * Returns calculate percentage for linear-gardient background color
      * 
-     * @param {difference} difference the substraction result between the max and min values of ADI.
-     * @param {percentageResult} percentageResult the calculated result for the linear-gardient css background
      */
     getCalculatePercantageResult() {
         var difference = this.maxAdi - this.minAdi;
