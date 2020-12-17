@@ -69,10 +69,10 @@ class AltitudeComponent extends Component {
      */
     drawAltitudeBar(altitude) {
         this.ctx.strokeStyle = 'blue';
-        this.ctx.linecanvasWidth = 5
+        this.ctx.linecanvasWidth = 10
         let desiredAlititude = this.canvasHeight - this.thickness - (this.canvasHeight - this.thickness * 2) * (altitude / this.max)
         this.ctx.moveTo(0, desiredAlititude)
-        this.ctx.lineTo(this.canvasWidth + 10, desiredAlititude)
+        this.ctx.lineTo(this.canvasWidth, desiredAlititude)
         this.ctx.stroke()
         this.ctx.restore()
     }
