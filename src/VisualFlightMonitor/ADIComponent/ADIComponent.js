@@ -22,7 +22,6 @@ class ADIComponent extends Component {
 
     render() {
         this.percentageResult = this.getCalculatePercantageResult();
-        console.log("Inside ADI render");
         return <div className="adi-border" style={{background:`linear-gradient(  rgb(0,113,255)
                 ${this.percentageResult}%, rgb(75,255,50) ${this.percentageResult}% )`}}>
         </div>
